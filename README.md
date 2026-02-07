@@ -50,7 +50,7 @@ func main() {
 - `Skip(n)`: Bypass first `n` elements.
 - `DistinctBy(keySelector)`: Unique elements based on a comparable key.
 
-### 🏗 Projection & Flattening
+### Projection & Flattening
 - `Select(transform)` / `SelectWithError(transform)`
 - `SelectMany(transform)`: Flatten nested sequences.
 
