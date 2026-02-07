@@ -3,7 +3,8 @@ package main
 import (
 	"errors"
 	"fmt"
-	"iterlinq"
+
+	"github.com/trevor-stanfield/iterlinq"
 )
 
 func main() {
