@@ -1,3 +1,4 @@
+// Package iterlinq provides lazy LINQ-style sequence operators for Go.
 package iterlinq
 
 // Where filters the sequence based on a predicate.
