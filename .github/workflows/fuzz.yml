@@ -1,0 +1,31 @@
+name: Fuzz
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 8 * * 1"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: fuzz-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  fuzz:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Go
+        uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+          cache: true
+
+      - name: Run fuzz targets
+        run: go test ./... -run=^$ -fuzz=Fuzz -fuzztime=60s
