@@ -1,6 +1,9 @@
 # Iterlinq
 
 [![Go Reference](https://pkg.go.dev/badge/github.com/trevorstanfield/iterlinq.svg)](https://pkg.go.dev/github.com/trevor-stanfield/iterlinq)
+[![CI](https://github.com/trevor-stanfield/IterLinq/actions/workflows/ci.yml/badge.svg)](https://github.com/trevor-stanfield/IterLinq/actions/workflows/ci.yml)
+[![Fuzz](https://github.com/trevor-stanfield/IterLinq/actions/workflows/fuzz.yml/badge.svg)](https://github.com/trevor-stanfield/IterLinq/actions/workflows/fuzz.yml)
+[![Security](https://github.com/trevor-stanfield/IterLinq/actions/workflows/security.yml/badge.svg)](https://github.com/trevor-stanfield/IterLinq/actions/workflows/security.yml)
 
 Iterlinq is a LINQ-style toolkit for Go with two interface modes:
 
