@@ -1,0 +1,44 @@
+run:
+  timeout: 5m
+  tests: true
+
+linters:
+  disable-all: true
+  enable:
+    - errcheck
+    - gofmt
+    - goimports
+    - gosimple
+    - ineffassign
+    - revive
+    - staticcheck
+    - stylecheck
+    - unused
+
+linters-settings:
+  gosimple:
+    checks:
+      - all
+      - -S1008
+
+  stylecheck:
+    checks:
+      - all
+      - -ST1023
+
+  revive:
+    rules:
+      - name: var-naming
+      - name: receiver-naming
+      - name: error-naming
+      - name: error-strings
+      - name: indent-error-flow
+      - name: if-return
+      - name: early-return
+      - name: superfluous-else
+      - name: unnecessary-stmt
+      - name: unexported-return
+
+issues:
+  max-same-issues: 0
+  max-issues-per-linter: 0

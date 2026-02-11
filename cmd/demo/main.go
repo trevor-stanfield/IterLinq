@@ -1,7 +1,6 @@
 package main
 
 import (
-	"errors"
 	"fmt"
 
 	"github.com/trevor-stanfield/iterlinq"
@@ -27,7 +26,7 @@ func main() {
 	fmt.Printf("   Last > 5: %v (err=%v)\n", lastOver5, err)
 	anyDivBy7, err := iterlinq.FromSlice(nums).Any(func(n int) bool { return n%7 == 0 })
 	fmt.Printf("   Any divisible by 7? %v (err=%v)\n", anyDivBy7, err)
-	allPositive, err := iterlinq.FromSlice(nums).All(func(n int) (bool, error) { return n > 0, nil })
+	allPositive, err := iterlinq.FromSlice(nums).All(func(n int) bool { return n > 0 })
 	fmt.Printf("   All positive? %v (err=%v)\n", allPositive, err)
 	cnt, err := iterlinq.FromSlice(nums).Count()
 	fmt.Printf("   Count: %d (err=%v)\n", cnt, err)
@@ -50,16 +49,21 @@ func main() {
 	ch, _ := chars.ToSlice()
 	fmt.Printf("4) Chars: %v\n", ch)
 
-	// 5) Error-aware operators demonstration
-	// Stop on encountering a 5 using WhereWithError
-	stopped, werr := iterlinq.FromSlice(nums).
-		WhereWithError(func(n int) (bool, error) {
+	// 5) Sequence error propagation demonstration
+	stopped, werr := iterlinq.FromFunc(func(yield func(int) bool) error {
+		for _, n := range nums {
 			if n == 5 {
-				return false, errors.New("stop at 5")
+				return fmt.Errorf("stop at 5")
 			}
-			return n%2 == 1, nil
-		}).ToSlice()
-	fmt.Printf("5) WhereWithError stopped: vals=%v err=%v\n", stopped, werr)
+			if !yield(n) {
+				return nil
+			}
+		}
+		return nil
+	}).Where(func(n int) bool {
+		return n%2 == 1
+	}).ToSlice()
+	fmt.Printf("5) Source error stopped: vals=%v err=%v\n", stopped, werr)
 
 	// 6) Safe From with nil iterator (edge case): treated as empty
 	var nilSeq iterlinq.Sequence[int] = iterlinq.From[int](nil)
