@@ -14,7 +14,10 @@ permissions:
 
 jobs:
   dependency-review:
-    if: github.event_name == 'pull_request'
+    # Disabled by default because some repositories do not have Dependency Graph enabled.
+    # Set repo variable ENABLE_DEPENDENCY_REVIEW=true after enabling:
+    # https://github.com/<owner>/<repo>/settings/security_analysis
+    if: github.event_name == 'pull_request' && vars.ENABLE_DEPENDENCY_REVIEW == 'true'
     runs-on: ubuntu-latest
     steps:
       - name: Dependency review
